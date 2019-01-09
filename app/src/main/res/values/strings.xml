@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MeditateOnMe</string>
+
+    <string name="empty_text" />
+
+    <string name="dialog_button_positive">Yes</string>
+    <string name="dialog_button_negative">No</string>
+
+    <string name="dialog_internet_title">This application requires Internet connection.</string>
+    <string name="dialog_internet_message">Would you connect to internet?</string>
+
+    <string name="dialog_exit_title">"Are sure you want to exit?"</string>
+
+</resources>
