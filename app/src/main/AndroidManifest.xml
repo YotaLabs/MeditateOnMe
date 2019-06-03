@@ -10,8 +10,8 @@
     <application
         android:name=".app.MeditateOnMeApp"
         android:allowBackup="false"
-        android:icon="@drawable/app_logo"
         android:label="@string/app_name"
+        android:icon="@drawable/app_logo"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
