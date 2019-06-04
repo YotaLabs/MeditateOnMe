@@ -25,9 +25,8 @@ proguard/
 
 # Android Studio captures folder
 captures/
-
-/credentials
-/export
+export/
+credentials/
 
 # IntelliJ
 *.iml
