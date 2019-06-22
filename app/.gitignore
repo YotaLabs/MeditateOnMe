@@ -1,5 +1,7 @@
 /build
 
+export/
+
 # Built application files
 *.apk
 *.ap_
