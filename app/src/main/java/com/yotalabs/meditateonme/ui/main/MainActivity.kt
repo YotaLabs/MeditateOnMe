@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -17,6 +18,10 @@ import com.yotalabs.meditateonme.R
 import com.yotalabs.meditateonme.util.isOnline
 import com.yotalabs.meditateonme.view.CustomAlert
 import kotlinx.android.synthetic.main.main_activity.*
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
+import timber.log.Timber
+
 
 /**
  * @author SashaKhyzhun
@@ -24,11 +29,37 @@ import kotlinx.android.synthetic.main.main_activity.*
  */
 class MainActivity : AppCompatActivity() {
 
+
+    companion object {
+        const val URL = "https://meditateonme.com/"
+        const val PUSH_NOTIFICATIONS = "push-notification/"
+        const val TOKEN = "?token="
+        const val whatsApp_prefix = "whatsapp://"
+        const val inProgressText = "Loading..."
+        const val TAG = "MainActivity"
+        fun getIntent(context: Context?) = Intent(context, MainActivity::class.java)
+    }
+
+
     private var internetDialog: AlertDialog? = null
+    private var deviceToken = ""
+    private var fullLink = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
+        FirebaseInstanceId
+            .getInstance()
+            .instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    checkInternetSettings()
+                    return@OnCompleteListener
+                }
+                fullLink = URL + PUSH_NOTIFICATIONS + TOKEN + task.result!!.token
+                checkInternetSettings()
+            })
 
         with(supportActionBar) {
             this?.setDisplayShowHomeEnabled(true)
@@ -36,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             this
         }
 
-        checkInternetSettings()
+
 
         home.setOnClickListener {
             initWebPage() // would be better to call @checkInternetSettings.
@@ -118,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         webView.settings.loadsImagesAutomatically = true
         webView.settings.javaScriptEnabled = true
         webView.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
-        webView.loadUrl(URL)
+        webView.loadUrl(fullLink)
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
                 return if (url != null && url.startsWith(whatsApp_prefix)) {
@@ -157,10 +188,4 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    companion object {
-        const val URL = "https://www.oceansdeepencounters.com/"
-        const val whatsApp_prefix = "whatsapp://"
-        const val inProgressText = "Loading..."
-        fun getIntent(context: Context?) = Intent(context, MainActivity::class.java)
-    }
 }

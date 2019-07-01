@@ -1,4 +1,4 @@
-package com.yotalabs.meditateonme.app
+package com.yotalabs.meditateonme
 
 import android.app.Application
 import com.yotalabs.meditateonme.BuildConfig
