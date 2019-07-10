@@ -45,18 +45,21 @@ fun Context.sendNotification(
     when (Build.VERSION.SDK_INT) {
         in 21..23 -> {
             notificationBuilder
+                .setColor(resources.getColor(R.color.colorPrimary))
                 .setSmallIcon(image)
                 .setContentTitle(title)
                 .setContentText(description)
         }
         in 24..25 -> {
             notificationBuilder
+                .setColor(resources.getColor(R.color.colorPrimary))
                 .setLargeIcon(mIcon)
                 .setContentTitle(title)
                 .setContentText(description)
         }
         in 26..27 -> {
             notificationBuilder
+                .setColor(resources.getColor(R.color.colorPrimary))
                 .setLargeIcon(mIcon)
                 .setContentTitle(title)
                 .setContentText(description)
@@ -82,6 +85,7 @@ fun Context.sendNotification(
             notificationBuilder
                 .setContentTitle(title)
                 .setContentText(description)
+                .setColor(resources.getColor(R.color.colorPrimary))
                 .setSmallIcon(image)
                 .setChannelId(channelId)
                 .build()
