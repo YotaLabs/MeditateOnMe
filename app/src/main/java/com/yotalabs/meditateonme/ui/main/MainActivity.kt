@@ -7,19 +7,18 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.yotalabs.meditateonme.R
 import com.yotalabs.meditateonme.util.isOnline
 import com.yotalabs.meditateonme.view.CustomAlert
 import kotlinx.android.synthetic.main.main_activity.*
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
 import timber.log.Timber
 
 
@@ -53,21 +52,22 @@ class MainActivity : AppCompatActivity() {
             .getInstance()
             .instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
+                Timber.d("TOKEN = ${task.result?.token}")
                 if (!task.isSuccessful) {
                     checkInternetSettings()
                     return@OnCompleteListener
                 }
                 fullLink = URL + PUSH_NOTIFICATIONS + TOKEN + task.result!!.token
+                Timber.d("fullLink=$fullLink")
                 checkInternetSettings()
             })
+
 
         with(supportActionBar) {
             this?.setDisplayShowHomeEnabled(true)
             this?.hide()
             this
         }
-
-
 
         home.setOnClickListener {
             initWebPage() // would be better to call @checkInternetSettings.
