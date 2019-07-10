@@ -13,6 +13,18 @@ android {
         versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    lintOptions {
+        abortOnError false
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('/MeditateOnMe/export/MeditateOnMe.jsk')
+            keyAlias 'MeditateOnMe'
+            keyPassword 'MeditateOnMe'
+            storePassword 'MeditateOnMe'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false

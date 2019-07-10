@@ -22,7 +22,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             intent = Intent(this, MainActivity::class.java),
             image = R.drawable.ic_notif,
             title = remoteMessage?.notification?.title ?: "MeditateOnMe",
-            description = remoteMessage?.notification?.body ?: "Time to mediate"
+            description = remoteMessage?.notification?.body ?: "Time to meditate"
         )
 
     }
