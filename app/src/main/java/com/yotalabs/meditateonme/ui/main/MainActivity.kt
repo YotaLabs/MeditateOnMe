@@ -52,13 +52,15 @@ class MainActivity : AppCompatActivity() {
             .getInstance()
             .instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
-                Timber.d("TOKEN = ${task.result?.token}")
+                //Timber.d("TOKEN = ${task.result?.token}")
+                //println("TOKEN = ${task.result?.token}")
+                //System.out.println("TOKEN = ${task.result?.token}")
                 if (!task.isSuccessful) {
                     checkInternetSettings()
                     return@OnCompleteListener
                 }
                 fullLink = URL + PUSH_NOTIFICATIONS + TOKEN + task.result!!.token
-                Timber.d("fullLink=$fullLink")
+                //Timber.d("fullLink=$fullLink")
                 checkInternetSettings()
             })
 

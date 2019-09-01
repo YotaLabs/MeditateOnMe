@@ -9,34 +9,51 @@ android {
         applicationId "com.yotalabs.meditateonme"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 4
-        versionName "1.0.1"
+        versionCode 5
+        versionName "1.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         abortOnError false
     }
 
+//    signingConfigs {
+//        release {
+//            storeFile file('/MeditateOnMe/export/MeditateOnMe.jsk')
+//            keyAlias 'MeditateOnMe'
+//            keyPassword 'MeditateOnMe'
+//            storePassword 'MeditateOnMe'
+//        }
+//    }
     signingConfigs {
-        release {
-            storeFile file('/MeditateOnMe/export/MeditateOnMe.jsk')
-            keyAlias 'MeditateOnMe'
-            keyPassword 'MeditateOnMe'
+        debug {
+            storeFile file('/Users/SashaKhyzhun/Work/Android/MeditateOnMe/export/MeditateOnMe.jks')
             storePassword 'MeditateOnMe'
+            keyAlias = 'MeditateOnMe'
+            keyPassword 'MeditateOnMe'
+        }
+        release {
+            storeFile file('/Users/SashaKhyzhun/Work/Android/MeditateOnMe/export/MeditateOnMe.jks')
+            storePassword 'MeditateOnMe'
+            keyAlias = 'MeditateOnMe'
+            keyPassword 'MeditateOnMe'
         }
     }
     buildTypes {
         release {
             minifyEnabled false
+            debuggable true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
